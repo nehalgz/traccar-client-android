@@ -5,7 +5,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId 'org.traccar.client'
+        applicationId 'in.csias.tcclient'
         buildConfigField 'boolean', 'HIDDEN_APP', 'false'
         minSdkVersion 16
         targetSdkVersion 31
@@ -34,7 +34,7 @@ android {
         }
         google
         hidden {
-            applicationId 'org.traccar.client.hidden'
+            applicationId 'in.csias.tcclient.hidden'
             buildConfigField 'boolean', 'HIDDEN_APP', 'true'
         }
     }
@@ -67,18 +67,3 @@ dependencies {
     googleImplementation 'com.google.android.play:core:1.10.2'
 }
 
-if (getGradle().getStartParameter().getTaskRequests().toString().contains('Google')) {
-    apply plugin: 'com.google.gms.google-services'
-    apply plugin: 'com.google.firebase.crashlytics'
-
-    task copyJson(type: Copy) {
-        from '../../environment/google-services'
-        into '.'
-        include 'traccar-client-android.json'
-        rename('traccar-client-android.json', 'google-services.json')
-    }
-
-    afterEvaluate {
-        preBuild.dependsOn copyJson
-    }
-}
