@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 - 2021 Anton Tananaev (anton@csias.in)
+ * Copyright 2015 - 2021 Anton Tananaev (anton@in.in)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,7 +148,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
 
     companion object {
         const val DATABASE_VERSION = 3
-        const val DATABASE_NAME = "csias.db"
+        const val DATABASE_NAME = "in.db"
     }
 
 }

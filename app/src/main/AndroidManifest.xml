@@ -36,12 +36,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask" />
 
-        <activity-alias
-            android:name=".Launcher"
-            android:exported="true"
-            android:targetActivity=".MainActivity">
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Privacy"
+            android:exported="true" />
+
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -49,7 +53,7 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-        </activity-alias>
+        </activity>
 
         <activity
             android:name=".StatusActivity"

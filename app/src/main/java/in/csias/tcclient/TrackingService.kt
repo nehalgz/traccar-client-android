@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 - 2021 Anton Tananaev (anton@csias.in)
+ * Copyright 2012 - 2021 Anton Tananaev (anton@in.in)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,8 +100,8 @@ class TrackingService : Service() {
 
     companion object {
 
-        const val ACTION_STARTED = "in.csias.action.SERVICE_STARTED"
-        const val ACTION_STOPPED = "in.csias.action.SERVICE_STOPPED"
+        const val ACTION_STARTED = "in.in.action.SERVICE_STARTED"
+        const val ACTION_STOPPED = "in.in.action.SERVICE_STOPPED"
         private val TAG = TrackingService::class.java.simpleName
         private const val NOTIFICATION_ID = 1
 

@@ -9,8 +9,8 @@ android {
         buildConfigField 'boolean', 'HIDDEN_APP', 'false'
         minSdkVersion 16
         targetSdkVersion 31
-        versionCode 77
-        versionName '6.16'
+        versionCode 80
+        versionName '6.19'
         multiDexEnabled true
     }
 
@@ -34,7 +34,7 @@ android {
         }
         google
         hidden {
-            applicationId 'in.csias.tcclient.hidden'
+            applicationId 'in.in.tcclient.hidden'
             buildConfigField 'boolean', 'HIDDEN_APP', 'true'
         }
     }
@@ -58,7 +58,7 @@ dependencies {
         transitive = true
     }
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.6.1'
+    testImplementation 'in.robolectric:robolectric:4.6.1'
     googleImplementation platform('com.google.firebase:firebase-bom:28.2.1')
     googleImplementation 'com.google.firebase:firebase-core'
     googleImplementation 'com.google.firebase:firebase-analytics'

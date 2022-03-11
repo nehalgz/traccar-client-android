@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Qmodi Client</string>
+  <string name="app_name">Qmodi Tracking App</string>
   <string name="app_logo">Qmodi</string>
   <string name="shortcut_start">Start service</string>
   <string name="shortcut_stop">Stop service</string>
@@ -15,7 +15,7 @@
   <string name="settings_distance_summary">Reporting distance in meters</string>
   <string name="settings_angle_title">Angle</string>
   <string name="settings_angle_summary">Reporting angle in degrees</string>
-  <string name="settings_status_title">Service status</string>
+  <string name="settings_status_title">Share Location Data</string>
   <string name="settings_status_off">Start</string>
   <string name="settings_status_on">Stop</string>
   <string name="settings_status_off_summary">Service stopped</string>
@@ -35,6 +35,7 @@
   <string name="settings_foreground_summary">Increase service priority</string>
   <string name="menu_status">Status</string>
   <string name="menu_info">Info</string>
+  <string name="menu_privacy">Privacy Policy</string>
   <string name="menu_shortcuts">Add shortcuts</string>
   <string name="menu_clear">Clear</string>
   <string name="status_service_create">Service started</string>

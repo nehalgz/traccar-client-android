@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 - 2021 Anton Tananaev (anton@csias.in)
+ * Copyright 2012 - 2021 Anton Tananaev (anton@in.in)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,6 +105,18 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         if (sharedPreferences.getBoolean(KEY_STATUS, false)) {
             startTrackingService(checkPermission = true, initialPermission = false)
         }
+
+            val requiredPermissions: MutableSet<String> = HashSet()
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            var permission = requiredPermissions.isEmpty()
+            if (!permission) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(requiredPermissions.toTypedArray(), PERMISSIONS_REQUEST_LOCATION)
+                }
+                return
+            }
     }
 
     class NumericEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
@@ -207,6 +219,9 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
             return true
         } else if (item.itemId == R.id.info) {
             DokiActivity.start(requireContext())
+            return true
+        }else if (item.itemId == R.id.privacy) {
+            startActivity(Intent(activity, Privacy::class.java))
             return true
         }
         return super.onOptionsItemSelected(item)
