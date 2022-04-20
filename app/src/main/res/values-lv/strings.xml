@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar klients</string>
-  <string name="app_logo">Traccar</string>
+  <string name="app_name">Qmodi klients</string>
+  <string name="app_logo">Qmodi</string>
   <string name="shortcut_start">Sākt servisu</string>
   <string name="shortcut_stop">Apstādināt servisu</string>
   <string name="shortcut_sos">Sūtīt SOS</string>
   <string name="channel_default">Primārais kanāls</string>
   <string name="settings_id_title">Ierīces identifikators</string>
   <string name="settings_url_title">Servera URL</string>
-  <string name="settings_url_summary">Traccar servera URL</string>
+  <string name="settings_url_summary">Qmodi servera URL</string>
   <string name="settings_interval_title">Biežums</string>
   <string name="settings_interval_summary">Atskaites biežums sekundēs</string>
   <string name="settings_distance_title">Distance</string>
@@ -44,6 +44,6 @@
   <string name="status_network_online">Tīkls tiešsaitē</string>
   <string name="status_network_offline">Tīkls bezsaitē</string>
   <string name="hidden_app_name">Ierīces iestatījumi</string>
-  <string name="hidden_alert">Lietotne ir paslēpta. Zvaniet 8722227 (TRACCAR), lai to atkal parādītu.</string>
+  <string name="hidden_alert">Lietotne ir paslēpta. Zvaniet 8722227 (Qmodi), lai to atkal parādītu.</string>
   <string name="error_msg_invalid_url">Lūdzu ievadiet derīgu http:// vai https:// URL</string>
 </resources>
