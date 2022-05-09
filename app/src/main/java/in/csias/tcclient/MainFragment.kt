@@ -174,8 +174,8 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     override fun onStart() {
         super.onStart()
         val intentFilter = IntentFilter(EVENT_TOKEN)
-        broadcastManager.sendBroadcast(Intent(EVENT_LOGIN))
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter)
+        broadcastManager.sendBroadcast(Intent(EVENT_LOGIN))
         if (requestingPermissions) {
             requestingPermissions = BatteryOptimizationHelper().requestException(requireContext())
         }

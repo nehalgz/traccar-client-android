@@ -34,14 +34,73 @@ class SplashScreenActivity : AppCompatActivity() {
             if(sharedPreferences.getBoolean(MainFragment.KEY_LOGIN, false)) {
                 checkLocationPermission()
             }else{
-                val mainIntent = Intent(this, AuthActivity::class.java)
-                startActivity(mainIntent)
-                finish()
+                AlertDialog.Builder(this)
+                        .setTitle("Location Permission Needed")
+                        .setMessage("Qmodi Tracking Android App collects\n" +
+                                "location data to enable tracking yours\n" +
+                                "several loads and calculate distance\n" +
+                                "travelled when app is working or even when\n" +
+                                "the app is closed or not in use.\n" +
+                                "\n" +
+                                "This data will be uploaded to qmodi.com\n" +
+                                "where you can view and/or delete your\n" +
+                                "location(Loads) tavelled history.\n" +
+                                "\n" +
+                                "Qmodi Tracking Android App collects location data to enable\n" +
+                                "1. Estimate/Actual Time Needed for each load trips\n" +
+                                "2. Distance traveled (Actual vs as on load map) estimate vs actual\n" +
+                                "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
+                                "even when the app is closed or not in use.\n" +
+                                "\n" +
+                                "Qmodi Tracking Android App collects location data to enable\n" +
+                                "1. Estimate/Actual Time Needed for each load trips\n" +
+                                "2. Distance traveled (Actual vs as on load map) estimate vs actual\n" +
+                                "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
+                                "even when the app is closed or not in use and it is also used to support advertising.")
+                        .setPositiveButton(
+                                "Proceed"
+                        ) { _, _ ->
+                            val mainIntent = Intent(this, AuthActivity::class.java)
+                            startActivity(mainIntent)
+                            finish()
+                        }
+                        .create()
+                        .show()
+
             }
         }else{
-            val mainIntent = Intent(this, AuthActivity::class.java)
-            startActivity(mainIntent)
-            finish()
+            AlertDialog.Builder(this)
+                    .setTitle("Location Permission Needed")
+                    .setMessage("Qmodi Tracking Android App collects\n" +
+                            "location data to enable tracking yours\n" +
+                            "several loads and calculate distance\n" +
+                            "travelled when app is working or even when\n" +
+                            "the app is closed or not in use.\n" +
+                            "\n" +
+                            "This data will be uploaded to qmodi.com\n" +
+                            "where you can view and/or delete your\n" +
+                            "location(Loads) tavelled history.\n" +
+                            "\n" +
+                            "Qmodi Tracking Android App collects location data to enable\n" +
+                            "1. Estimate/Actual Time Needed for each load trips\n" +
+                            "2. Distance traveled (Actual vs as on load map) estimate vs actual\n" +
+                            "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
+                            "even when the app is closed or not in use.\n" +
+                            "\n" +
+                            "Qmodi Tracking Android App collects location data to enable\n" +
+                            "1. Estimate/Actual Time Needed for each load trips\n" +
+                            "2. Distance traveled (Actual vs as on load map) estimate vs actual\n" +
+                            "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
+                            "even when the app is closed or not in use and it is also used to support advertising.")
+                    .setPositiveButton(
+                            "Proceed"
+                    ) { _, _ ->
+                        val mainIntent = Intent(this, AuthActivity::class.java)
+                        startActivity(mainIntent)
+                        finish()
+                    }
+                    .create()
+                    .show()
         }
 
     }
@@ -94,7 +153,7 @@ class SplashScreenActivity : AppCompatActivity() {
                             "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
                             "even when the app is closed or not in use and it is also used to support advertising.")
                     .setPositiveButton(
-                        "OK"
+                        "Proceed"
                     ) { _, _ ->
                         //Prompt the user once explanation has been shown
                         requestLocationPermission()
@@ -127,7 +186,7 @@ class SplashScreenActivity : AppCompatActivity() {
                             "3. Marking and Notifying on entry and exit of each Geo fence (Stops) in the load trips\n" +
                             "even when the app is closed or not in use and it is also used to support advertising.")
                     .setPositiveButton(
-                        "OK"
+                        "Proceed"
                     ) { _, _ ->
                         //Prompt the user once explanation has been shown
                         requestLocationPermission()
