@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -17,17 +18,31 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 
 class SplashScreenActivity : AppCompatActivity() {
     private val SPLASH_DISPLAY_LENGTH = 2000
     private val REQUEST_ENABLE_BT = 3
     private val PERMISSION_COARSE_LOCATION = 2
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-
-        checkLocationPermission()
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPreferences.contains(MainFragment.KEY_LOGIN)) {
+            if(sharedPreferences.getBoolean(MainFragment.KEY_LOGIN, false)) {
+                checkLocationPermission()
+            }else{
+                val mainIntent = Intent(this, AuthActivity::class.java)
+                startActivity(mainIntent)
+                finish()
+            }
+        }else{
+            val mainIntent = Intent(this, AuthActivity::class.java)
+            startActivity(mainIntent)
+            finish()
+        }
 
     }
 

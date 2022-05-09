@@ -19,15 +19,14 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.text.InputType
 import android.util.Log
 import android.view.Menu
@@ -39,15 +38,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.preference.EditTextPreference
-import androidx.preference.EditTextPreferenceDialogFragmentCompat
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.TwoStatePreference
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.preference.*
 import dev.doubledot.doki.ui.DokiActivity
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
-import kotlin.collections.HashSet
+
 
 class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
 
@@ -55,6 +53,8 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     private lateinit var alarmManager: AlarmManager
     private lateinit var alarmIntent: PendingIntent
     private var requestingPermissions: Boolean = false
+    private lateinit var broadcastManager: LocalBroadcastManager
+
 
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -117,6 +117,10 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
                 }
                 return
             }
+        val policy = ThreadPolicy.Builder()
+            .permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        broadcastManager = LocalBroadcastManager.getInstance(requireContext())
     }
 
     class NumericEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
@@ -169,9 +173,17 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
 
     override fun onStart() {
         super.onStart()
+        val intentFilter = IntentFilter(EVENT_TOKEN)
+        broadcastManager.sendBroadcast(Intent(EVENT_LOGIN))
+        broadcastManager.registerReceiver(broadcastReceiver, intentFilter)
         if (requestingPermissions) {
             requestingPermissions = BatteryOptimizationHelper().requestException(requireContext())
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        broadcastManager.unregisterReceiver(broadcastReceiver)
     }
 
     override fun onResume() {
@@ -291,6 +303,43 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
     }
 
+    private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val token = intent.getStringExtra(KEY_TOKEN)
+            Log.e("Token", token.toString())
+            updateToken(token.toString());
+        }
+    }
+
+    private fun formatRequest(url: String, token: String, deviceId : String): String {
+        val serverUrl = Uri.parse(url)
+        val builder = serverUrl.buildUpon()
+            .appendQueryParameter("id", deviceId)
+            .appendQueryParameter("DeviceToken", token)
+        return builder.build().toString()
+    }
+
+    private fun updateToken(token: String){
+        val TIMEOUT = 15 * 1000
+        var inputStream: InputStream? = null
+        val phoneNo = sharedPreferences.getString(KEY_DEVICE, null)
+
+        Log.e("Token", token);
+
+        var request = formatRequest("https://app.qmodi.com/register-device-token", token, phoneNo.toString());
+        Log.e("Request", request)
+        val url = URL(request)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.readTimeout = TIMEOUT
+        connection.connectTimeout = TIMEOUT
+        connection.requestMethod = "POST"
+        connection.connect()
+        inputStream = connection.inputStream
+        val inputAsString = inputStream.bufferedReader().use { it.readText() }
+
+        Log.e("Stream ************", inputAsString)
+    }
+
     private fun stopTrackingService() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             alarmManager.cancel(alarmIntent)
@@ -337,6 +386,10 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         const val KEY_STATUS = "status"
         const val KEY_BUFFER = "buffer"
         const val KEY_WAKELOCK = "wakelock"
+        const val KEY_LOGIN = "auth"
+        const val EVENT_TOKEN = "eventToken"
+        const val KEY_TOKEN = "keyToken"
+        const val EVENT_LOGIN = "eventLogin"
         private const val PERMISSIONS_REQUEST_LOCATION = 2
         private const val PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 3
     }

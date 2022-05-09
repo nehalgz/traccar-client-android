@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android-extensions"
 
 android {
     compileSdkVersion 31
@@ -7,7 +8,7 @@ android {
     defaultConfig {
         applicationId 'in.csias.tcclient'
         buildConfigField 'boolean', 'HIDDEN_APP', 'false'
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 31
         versionCode 81
         versionName '6.20'
@@ -57,13 +58,18 @@ dependencies {
     implementation('dev.doubledot.doki:library:0.0.1@aar') {
         transitive = true
     }
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
+    implementation 'com.google.android.gms:play-services-measurement-api:20.1.2'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'in.robolectric:robolectric:4.6.1'
     googleImplementation platform('com.google.firebase:firebase-bom:28.2.1')
     googleImplementation 'com.google.firebase:firebase-core'
     googleImplementation 'com.google.firebase:firebase-analytics'
     googleImplementation 'com.google.firebase:firebase-crashlytics'
+    googleImplementation 'com.google.firebase:firebase-messaging'
     googleImplementation 'com.google.android.gms:play-services-location:18.0.0'
     googleImplementation 'com.google.android.play:core:1.10.2'
 }
-
+apply plugin: 'com.google.gms.google-services'
